@@ -1,14 +1,11 @@
-saya baru belajar dalam mengerjakan pembuatan website, rencana saya ingin menggunakan framework larevel saja, jadi ubah keseluruhan konfigurasi yang ada menjadi laravel base.
+buatkan issue.md yang nanti diimplementasikan oleh junior programmer ataupun model ai yang lebih murah
 
-saya ingin membuat sebuah aplikasi pencatat pengeluaran harian. aplikasi ini saya gunakan untuk menyelesaikan masalah pencatatan:
-1) pengeluaran, sub kategori: makan & minum, tempat tinggal, utilitas, transportasi, rumah tangga, kesehatan, pajak, pendidikan, pengembangan diri, perawatan diri, pakaian & aksesori,  hiburan, kehidupan sosial, hadiah, dll;
-2) Penghasilan, dengan berbagai sub kategori;
-3) Tagihan, dengan berbagai sub kategori;
-4) Hutang, dengan berbagai sub kategori;
-5) Tabungan, dengan berbagai sub kategori;
-6) Investasi, dengan berbagai sub kategori.
+isikan perencanaan ini berdasarkan scenario user yang saya berikan sebelumnya dengan dibagi menjadi 3 issue.md yang masing-masing mengerjakan 1 task di bawah ini:
 
-nah dari pencatatan itu dapat ditampilkan seperti fitur rangkuman pada dashboard. tolong bantu saya dalam menyelesaikan masalah yang ada dan berikan saya petunjuk apa saja yang diperlukan dan langkah demi langkah dalam pembuatan web app ini seperti planning ataupun dalam bentuk prd.
-oh iya, saya juga belum tau mekanisme apa saja yang biasanya dilakukan professional dalam membuat sebuah web app contohnya seperti memisahkan issue.md pada tiap pembuatan API lalu di review pada PR (saya baru tahu lewat video tutorial). tolong berikan saya gambaran mengenai mekanisme tersebut.
+[ ] Setup Database (SQLite - Default Laravel) dan Authentication
+[ ] Buat Model dan Migration untuk Category dan Transaction
+[ ] Buat sistem pencatatan keuangan (CRUD) dan Dashboard (Blade + Tailwind)
 
+untuk struktur folder dan file saya serahkan pada anda sebaiknya bagaimana professional melakukan pada framework laravel ini.
 
+jelaskan tahapan-tahapan yang harus dilakukan untuk mengimplementasikan fitur ini, anggap nanti yang mengimplementasikan adalah junior programmer atau model AI yang lebih murah.
