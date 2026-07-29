@@ -63,6 +63,6 @@ Tabel ini menyimpan riwayat pencatatan pengguna.
    - Setelah file migration selesai diedit, jalankan: `php artisan migrate`.
 
 ## Kriteria Penerimaan (Acceptance Criteria)
-- [ ] Tabel `categories` dan `transactions` terbuat di database SQLite tanpa error.
-- [ ] File Model memiliki relasi Eloquent yang benar.
-- [ ] File Model memiliki `$fillable` yang di-setup agar terhindar dari error Mass Assignment.
+- [x] Tabel `categories` dan `transactions` terbuat di database SQLite tanpa error.
+- [x] File Model memiliki relasi Eloquent yang benar.
+- [x] File Model memiliki `$fillable` yang di-setup agar terhindar dari error Mass Assignment.
