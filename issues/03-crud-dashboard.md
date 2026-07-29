@@ -43,7 +43,7 @@ Gunakan folder `resources/views/transactions/` untuk menyimpan antarmuka.
 - Modifikasi UI dashboard agar menampilkan blok/kartu informasi ringkasan tersebut secara jelas menggunakan TailwindCSS (misal membuat desain card dengan warna hijau untuk penghasilan, merah untuk pengeluaran).
 
 ## Kriteria Penerimaan (Acceptance Criteria)
-- [ ] User bisa menambah, mengedit, dan menghapus Transaksi keuangan.
-- [ ] User hanya bisa melihat dan memanipulasi datanya sendiri (bukan milik user lain).
-- [ ] Halaman Dashboard sudah menampilkan rekap total pemasukan dan pengeluaran secara kalkulatif.
-- [ ] Tampilan responsif minimal menggunakan TailwindCSS bawaan dari instalasi.
+- [x] User bisa menambah, mengedit, dan menghapus Transaksi keuangan.
+- [x] User hanya bisa melihat dan memanipulasi datanya sendiri (bukan milik user lain).
+- [x] Halaman Dashboard sudah menampilkan rekap total pemasukan dan pengeluaran secara kalkulatif.
+- [x] Tampilan responsif minimal menggunakan TailwindCSS bawaan dari instalasi.
