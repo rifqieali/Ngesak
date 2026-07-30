@@ -8,7 +8,15 @@
     <div class="py-8">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-100 p-6">
-                <form action="{{ route('transactions.update', $transaction) }}" method="POST" class="space-y-6">
+                <form action="{{ route('transactions.update', $transaction) }}" method="POST" class="space-y-6"
+                    x-data="{
+                        type: '{{ old('type', $transaction->type) }}',
+                        categoryId: '{{ old('category_id', $transaction->category_id) }}',
+                        categories: {{ json_encode($categories->map->only(['id', 'name', 'type'])->values()) }},
+                        get filteredCategories() {
+                            return this.categories.filter(c => c.type === this.type);
+                        }
+                    }">
                     @csrf
                     @method('PUT')
 
@@ -20,9 +28,9 @@
 
                     <div>
                         <x-input-label for="type" :value="__('Tipe Transaksi')" />
-                        <select id="type" name="type" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                        <select id="type" name="type" x-model="type" @change="categoryId = ''" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                             @foreach($types as $type)
-                                <option value="{{ $type }}" {{ old('type', $transaction->type) === $type ? 'selected' : '' }}>
+                                <option value="{{ $type }}">
                                     {{ ucfirst($type) }}
                                 </option>
                             @endforeach
@@ -32,13 +40,11 @@
 
                     <div>
                         <x-input-label for="category_id" :value="__('Kategori')" />
-                        <select id="category_id" name="category_id" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                        <select id="category_id" name="category_id" x-model="categoryId" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
                             <option value="">-- Pilih Kategori --</option>
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}" {{ old('category_id', $transaction->category_id) == $category->id ? 'selected' : '' }}>
-                                    {{ $category->name }} ({{ ucfirst($category->type) }})
-                                </option>
-                            @endforeach
+                            <template x-for="category in filteredCategories" :key="category.id">
+                                <option :value="category.id" x-text="category.name"></option>
+                            </template>
                         </select>
                         <x-input-error class="mt-2" :messages="$errors->get('category_id')" />
                     </div>
