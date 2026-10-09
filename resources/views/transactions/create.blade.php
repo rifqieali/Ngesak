@@ -64,6 +64,19 @@
                     </div>
 
                     <div>
+                        <label for="wallet_id" class="block text-[16px] font-semibold text-graphite">{{ __('Posisi Kas (Opsional)') }}</label>
+                        <select id="wallet_id" name="wallet_id" class="input-pill mt-2">
+                            <option value="">Pilih Posisi Kas</option>
+                            @foreach($wallets as $wallet)
+                                <option value="{{ $wallet->id }}" {{ old('wallet_id') == $wallet->id ? 'selected' : '' }}>
+                                    {{ $wallet->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <x-input-error class="mt-2" :messages="$errors->get('wallet_id')" />
+                    </div>
+
+                    <div>
                         <label for="amount" class="block text-[16px] font-semibold text-graphite">{{ __('Jumlah (Rp)') }}</label>
                         <div class="relative mt-2">
                             <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-5">

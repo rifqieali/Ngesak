@@ -37,6 +37,7 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'type' => ['required', Rule::in(['pengeluaran', 'penghasilan', 'tagihan', 'hutang', 'tabungan', 'investasi'])],
+            'description' => ['nullable', 'string'],
         ]);
 
         $validated['user_id'] = auth()->id();
@@ -71,6 +72,7 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'type' => ['required', Rule::in(['pengeluaran', 'penghasilan', 'tagihan', 'hutang', 'tabungan', 'investasi'])],
+            'description' => ['nullable', 'string'],
         ]);
 
         $category->update($validated);

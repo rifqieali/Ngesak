@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Wallet extends Model
 {
-    protected $fillable = ['user_id', 'type', 'name', 'description'];
+    protected $fillable = ['user_id', 'name'];
 
     public function user()
     {

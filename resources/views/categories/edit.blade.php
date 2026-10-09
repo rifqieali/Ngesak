@@ -31,6 +31,12 @@
                         <x-input-error class="mt-2" :messages="$errors->get('type')" />
                     </div>
 
+                    <div>
+                        <x-input-label for="description" :value="__('Deskripsi (Opsional)')" />
+                        <textarea id="description" name="description" rows="2" class="input-pill mt-2 resize-none">{{ old('description', $category->description) }}</textarea>
+                        <x-input-error class="mt-2" :messages="$errors->get('description')" />
+                    </div>
+
                     <div class="flex items-center justify-end gap-4 pt-6 border-t border-fog">
                         <a href="{{ route('categories.index') }}" class="text-[16px] font-semibold text-graphite/70 hover:text-graphite transition min-h-[44px] inline-flex items-center">
                             Batal

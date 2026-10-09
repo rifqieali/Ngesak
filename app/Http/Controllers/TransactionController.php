@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Transaction;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -15,7 +16,7 @@ class TransactionController extends Controller
     public function index()
     {
         $transactions = Transaction::where('user_id', auth()->id())
-            ->with('category')
+            ->with(['category', 'wallet'])
             ->latest('transaction_date')
             ->latest('id')
             ->paginate(10);
@@ -29,9 +30,10 @@ class TransactionController extends Controller
     public function create()
     {
         $categories = Category::where('user_id', auth()->id())->get();
+        $wallets = Wallet::where('user_id', auth()->id())->orderBy('name')->get();
         $types = ['pengeluaran', 'penghasilan', 'tagihan', 'hutang', 'tabungan', 'investasi'];
 
-        return view('transactions.create', compact('categories', 'types'));
+        return view('transactions.create', compact('categories', 'wallets', 'types'));
     }
 
     /**
@@ -47,6 +49,12 @@ class TransactionController extends Controller
                 }),
             ],
             'type' => ['required', Rule::in(['pengeluaran', 'penghasilan', 'tagihan', 'hutang', 'tabungan', 'investasi'])],
+            'wallet_id' => [
+                'nullable',
+                Rule::exists('wallets', 'id')->where(function ($query) {
+                    $query->where('user_id', auth()->id());
+                }),
+            ],
             'amount' => ['required', 'numeric', 'min:0.01'],
             'transaction_date' => ['required', 'date'],
             'notes' => ['nullable', 'string'],
@@ -69,9 +77,10 @@ class TransactionController extends Controller
         }
 
         $categories = Category::where('user_id', auth()->id())->get();
+        $wallets = Wallet::where('user_id', auth()->id())->orderBy('name')->get();
         $types = ['pengeluaran', 'penghasilan', 'tagihan', 'hutang', 'tabungan', 'investasi'];
 
-        return view('transactions.edit', compact('transaction', 'categories', 'types'));
+        return view('transactions.edit', compact('transaction', 'categories', 'wallets', 'types'));
     }
 
     /**
@@ -91,6 +100,12 @@ class TransactionController extends Controller
                 }),
             ],
             'type' => ['required', Rule::in(['pengeluaran', 'penghasilan', 'tagihan', 'hutang', 'tabungan', 'investasi'])],
+            'wallet_id' => [
+                'nullable',
+                Rule::exists('wallets', 'id')->where(function ($query) {
+                    $query->where('user_id', auth()->id());
+                }),
+            ],
             'amount' => ['required', 'numeric', 'min:0.01'],
             'transaction_date' => ['required', 'date'],
             'notes' => ['nullable', 'string'],

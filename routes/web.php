@@ -18,7 +18,7 @@ Route::get('/dashboard', function () {
         ->sum('amount');
 
     $totalPengeluaran = Transaction::where('user_id', $userId)
-        ->where('type', 'pengeluaran')
+        ->where('type', '!=', 'penghasilan')
         ->sum('amount');
 
     $saldo = $totalPenghasilan - $totalPengeluaran;

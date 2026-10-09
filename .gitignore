@@ -25,3 +25,8 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Personal data: never commit real financial records or the seeders built from them
+/Setting.csv
+/Transaksi.csv
+/database/seeders/Personal*Seeder.php
