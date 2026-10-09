@@ -1,3 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  /* Colors */
+  --color-ember-orange: #ff5406;
+  --color-verdant-green: #00b33f;
+  --color-signal-red-orange: #ff3400;
+  --color-sky-blue: #00a9dd;
+  --color-mist-blue: #72a2c5;
+  --color-sunset-orange: #ff6d00;
+  --color-amber: #945300;
+  --color-alert-red: #ff001e;
+  --color-plum: #bd4be5;
+  --color-iris: #5856de;
+  --color-electric-blue: #0099f9;
+  --color-graphite: #2f2f2f;
+  --color-charcoal: #000000;
+  --color-fog: #f5f5f5;
+  --color-paper-white: #ffffff;
+
+  /* Type */
+  --text-tiny: 12px;
+  --text-caption: 14px;
+  --text-body-sm: 16px;
+  --text-subheading: 20px;
+  --text-heading-sm: 22px;
+  --text-heading: 30px;
+  --text-display: 60px;
+
+  /* Spacing */
+  --spacing-unit: 8px;
+  --page-max-width: 1200px;
+  --section-gap: 96px;
+  --card-padding: 32px;
+  --element-gap: 20px;
+
+  /* Radius: signature softness, flat system */
+  --radius-pill: 26px;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--color-paper-white);
+    color: var(--color-graphite);
+    line-height: 1.6;
+  }
+  ::selection {
+    background-color: #ffd9c7;
+    color: #2f2f2f;
+  }
+  :focus-visible {
+    outline: 3px solid #ff5406;
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+}
+
+@layer components {
+  .btn-brand {
+    background-color: var(--color-ember-orange);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.2;
+    border-radius: 26px;
+    padding: 12px 20px;
+  }
+  .btn-brand:hover {
+    background-color: #e64b05;
+  }
+  .card-flat {
+    background-color: var(--color-paper-white);
+    border: 1px solid var(--color-fog);
+    border-radius: 26px;
+    padding: 32px;
+  }
+  .card-fog {
+    background-color: var(--color-fog);
+    border-radius: 26px;
+    padding: 32px;
+  }
+  .input-pill {
+    border-radius: 26px;
+    border: 1px solid #e5e5e5;
+    background-color: #ffffff;
+    color: #2f2f2f;
+    padding: 12px 20px;
+    width: 100%;
+  }
+  .input-pill:focus {
+    border-color: #ff5406;
+    outline: 3px solid rgba(255, 84, 6, 0.25);
+    outline-offset: 0;
+  }
+  .tag-pill {
+    border-radius: 26px;
+    padding: 8px 16px;
+  }
+}

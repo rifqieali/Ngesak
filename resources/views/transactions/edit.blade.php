@@ -1,22 +1,21 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center gap-3">
-            <a href="{{ route('transactions.index') }}" class="p-2 text-slate-400 hover:text-teal-600 hover:bg-teal-50 rounded-xl transition-all duration-200">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+            <a href="{{ route('transactions.index') }}" class="inline-flex items-center justify-center w-[44px] h-[44px] text-graphite hover:bg-fog rounded-pill transition" aria-label="Kembali ke riwayat transaksi">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
             </a>
-            <h2 class="font-bold text-2xl text-slate-800 tracking-tight">
-                {{ __('Edit Transaksi') }}
+            <h2 class="font-bold text-[30px] leading-[1.2]">
+                <span class="text-ember">Edit</span>
+                <span class="text-graphite">Transaksi</span>
             </h2>
         </div>
     </x-slot>
 
-    <div class="py-8">
-        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white/80 backdrop-blur-xl overflow-hidden shadow-xl shadow-slate-200/40 rounded-3xl border border-slate-100 p-8 sm:p-10 relative">
-                <!-- Decorative background elements -->
-                <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-teal-50 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+    <div class="py-8 pb-24">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-paper overflow-hidden rounded-pill border border-fog p-8 sm:p-10">
 
-                <form action="{{ route('transactions.update', $transaction) }}" method="POST" class="space-y-6 relative z-10"
+                <form action="{{ route('transactions.update', $transaction) }}" method="POST" class="space-y-6"
                     x-data="{
                         type: '{{ old('type', $transaction->type) }}',
                         categoryId: '{{ old('category_id', $transaction->category_id) }}',
@@ -29,15 +28,15 @@
                     @method('PUT')
 
                     <div>
-                        <label for="transaction_date" class="block text-sm font-semibold text-slate-700">{{ __('Tanggal Transaksi') }}</label>
-                        <input id="transaction_date" name="transaction_date" type="date" class="mt-2 block w-full rounded-2xl border-slate-200 text-slate-700 focus:border-teal-500 focus:ring-teal-500/20 shadow-sm transition-colors" value="{{ old('transaction_date', $transaction->transaction_date) }}" required />
+                        <label for="transaction_date" class="block text-[16px] font-semibold text-graphite">{{ __('Tanggal Transaksi') }}</label>
+                        <input id="transaction_date" name="transaction_date" type="date" class="input-pill mt-2" value="{{ old('transaction_date', $transaction->transaction_date) }}" required />
                         <x-input-error class="mt-2" :messages="$errors->get('transaction_date')" />
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div>
-                            <label for="type" class="block text-sm font-semibold text-slate-700">{{ __('Tipe Transaksi') }}</label>
-                            <select id="type" name="type" x-model="type" @change="categoryId = ''" class="mt-2 block w-full rounded-2xl border-slate-200 text-slate-700 focus:border-teal-500 focus:ring-teal-500/20 shadow-sm transition-colors">
+                            <label for="type" class="block text-[16px] font-semibold text-graphite">{{ __('Tipe Transaksi') }}</label>
+                            <select id="type" name="type" x-model="type" @change="categoryId = ''" class="input-pill mt-2">
                                 @foreach($types as $typeOption)
                                     <option value="{{ $typeOption }}">
                                         {{ ucfirst($typeOption) }}
@@ -48,9 +47,9 @@
                         </div>
 
                         <div>
-                            <label for="category_id" class="block text-sm font-semibold text-slate-700">{{ __('Kategori') }}</label>
-                            <select id="category_id" name="category_id" x-model="categoryId" class="mt-2 block w-full rounded-2xl border-slate-200 text-slate-700 focus:border-teal-500 focus:ring-teal-500/20 shadow-sm transition-colors" required>
-                                <option value="">-- Pilih Kategori --</option>
+                            <label for="category_id" class="block text-[16px] font-semibold text-graphite">{{ __('Kategori') }}</label>
+                            <select id="category_id" name="category_id" x-model="categoryId" class="input-pill mt-2" required>
+                                <option value="">Pilih Kategori</option>
                                 <template x-for="category in filteredCategories" :key="category.id">
                                     <option :value="category.id" x-text="category.name"></option>
                                 </template>
@@ -60,27 +59,27 @@
                     </div>
 
                     <div>
-                        <label for="amount" class="block text-sm font-semibold text-slate-700">{{ __('Jumlah (Rp)') }}</label>
-                        <div class="relative mt-2 rounded-2xl shadow-sm">
-                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-                                <span class="text-slate-400 font-medium sm:text-sm">Rp</span>
+                        <label for="amount" class="block text-[16px] font-semibold text-graphite">{{ __('Jumlah (Rp)') }}</label>
+                        <div class="relative mt-2">
+                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-5">
+                                <span class="text-graphite/60 font-medium text-[16px]">Rp</span>
                             </div>
-                            <input id="amount" name="amount" type="number" step="0.01" min="0.01" class="block w-full rounded-2xl border-slate-200 pl-12 text-slate-700 focus:border-teal-500 focus:ring-teal-500/20 transition-colors" value="{{ old('amount', $transaction->amount) }}" required />
+                            <input id="amount" name="amount" type="number" step="0.01" min="0.01" class="input-pill pl-12" value="{{ old('amount', $transaction->amount) }}" required />
                         </div>
                         <x-input-error class="mt-2" :messages="$errors->get('amount')" />
                     </div>
 
                     <div>
-                        <label for="notes" class="block text-sm font-semibold text-slate-700">{{ __('Catatan (Opsional)') }}</label>
-                        <textarea id="notes" name="notes" rows="3" class="mt-2 block w-full rounded-2xl border-slate-200 text-slate-700 focus:border-teal-500 focus:ring-teal-500/20 shadow-sm transition-colors resize-none">{{ old('notes', $transaction->notes) }}</textarea>
+                        <label for="notes" class="block text-[16px] font-semibold text-graphite">{{ __('Catatan (Opsional)') }}</label>
+                        <textarea id="notes" name="notes" rows="3" class="input-pill mt-2 resize-none">{{ old('notes', $transaction->notes) }}</textarea>
                         <x-input-error class="mt-2" :messages="$errors->get('notes')" />
                     </div>
 
-                    <div class="flex items-center justify-end gap-4 pt-6 mt-6 border-t border-slate-100">
-                        <a href="{{ route('transactions.index') }}" class="text-sm font-bold text-slate-500 hover:text-slate-800 transition-colors">
+                    <div class="flex items-center justify-end gap-4 pt-6 mt-6 border-t border-fog">
+                        <a href="{{ route('transactions.index') }}" class="text-[16px] font-semibold text-graphite/70 hover:text-graphite transition min-h-[44px] inline-flex items-center">
                             Batal
                         </a>
-                        <button type="submit" class="inline-flex items-center justify-center px-6 py-3 bg-teal-500 rounded-2xl font-bold text-white hover:bg-teal-600 hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition-all shadow-lg shadow-teal-200">
+                        <button type="submit" class="btn-brand min-h-[44px]">
                             Perbarui Transaksi
                         </button>
                     </div>
