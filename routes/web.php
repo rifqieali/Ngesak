@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 use App\Models\Transaction;
+use App\Support\PeriodeFilter;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,25 +13,35 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     $userId = auth()->id();
+    $filter = PeriodeFilter::resolve($userId);
 
-    $totalPenghasilan = Transaction::where('user_id', $userId)
+    $base = Transaction::where('user_id', $userId)
+        ->period($filter['tahun'], $filter['bulan']);
+
+    $totalPenghasilan = (clone $base)
         ->where('type', 'penghasilan')
         ->sum('amount');
 
-    $totalPengeluaran = Transaction::where('user_id', $userId)
+    $totalPengeluaran = (clone $base)
         ->where('type', '!=', 'penghasilan')
         ->sum('amount');
 
     $saldo = $totalPenghasilan - $totalPengeluaran;
 
-    $recentTransactions = Transaction::where('user_id', $userId)
+    $recentTransactions = (clone $base)
         ->with('category')
         ->latest('transaction_date')
         ->latest('id')
         ->take(5)
         ->get();
 
-    return view('dashboard', compact('totalPenghasilan', 'totalPengeluaran', 'saldo', 'recentTransactions'));
+    return view('dashboard', array_merge(compact('totalPenghasilan', 'totalPengeluaran', 'saldo', 'recentTransactions'), [
+        'tahun' => $filter['tahun'],
+        'bulan' => $filter['bulan'],
+        'years' => $filter['years'],
+        'periodeLabel' => $filter['label'],
+        'isFiltered' => $filter['isFiltered'],
+    ]));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

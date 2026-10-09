@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Transaction;
 use App\Models\Wallet;
+use App\Support\PeriodeFilter;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -15,13 +16,23 @@ class TransactionController extends Controller
      */
     public function index()
     {
+        $filter = PeriodeFilter::resolve(auth()->id());
+
         $transactions = Transaction::where('user_id', auth()->id())
+            ->period($filter['tahun'], $filter['bulan'])
             ->with(['category', 'wallet'])
             ->latest('transaction_date')
             ->latest('id')
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
-        return view('transactions.index', compact('transactions'));
+        return view('transactions.index', array_merge(compact('transactions'), [
+            'tahun' => $filter['tahun'],
+            'bulan' => $filter['bulan'],
+            'years' => $filter['years'],
+            'periodeLabel' => $filter['label'],
+            'isFiltered' => $filter['isFiltered'],
+        ]));
     }
 
     /**

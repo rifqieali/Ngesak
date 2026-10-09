@@ -15,6 +15,8 @@
     <div class="pb-24 pt-6">
         <div class="max-w-page mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
 
+            <x-periode-filter :years="$years" :bulan="$bulan" :tahun="$tahun" :action="route('transactions.index')" />
+
             @if(session('success'))
                 <div class="p-5 bg-fog border border-fog text-graphite rounded-pill text-[16px] font-medium flex items-center gap-3" role="status">
                     <span class="w-8 h-8 rounded-full bg-verdant flex items-center justify-center shrink-0" aria-hidden="true">
@@ -34,7 +36,7 @@
                 $pageExpense = $transactions->where('type', '!=', 'penghasilan')->sum('amount');
             @endphp
             <section aria-label="Ringkasan halaman ini" class="bg-fog rounded-pill p-8">
-                <p class="text-[14px] font-medium text-graphite/70">Total Halaman Ini</p>
+                <p class="text-[14px] font-medium text-graphite/70">Total Halaman Ini · {{ $periodeLabel }}</p>
                 <p class="text-[30px] font-bold leading-[1.2] text-graphite mt-2">Rp {{ number_format($pageIncome - $pageExpense, 0, ',', '.') }}</p>
                 <div class="flex flex-col sm:flex-row gap-5 mt-8">
                     <div class="flex-1 bg-paper rounded-pill p-8 border border-fog">
@@ -97,7 +99,11 @@
                         <div class="bg-paper rounded-pill p-12 text-center border border-fog">
                             <div class="w-16 h-16 bg-fog text-graphite/60 rounded-pill flex items-center justify-center mx-auto mb-4 text-[20px] font-bold" aria-hidden="true">N</div>
                             <h4 class="text-[20px] font-bold text-graphite">Belum Ada Transaksi</h4>
-                            <p class="text-graphite/70 mt-2 max-w-sm mx-auto text-[16px]">Catat transaksi pengeluaran atau penghasilan pertama Anda untuk mulai memantau arus kas.</p>
+                            @if($isFiltered)
+                                <p class="text-graphite/70 mt-2 max-w-sm mx-auto text-[16px]">Tidak ada transaksi pada {{ $periodeLabel }}.</p>
+                            @else
+                                <p class="text-graphite/70 mt-2 max-w-sm mx-auto text-[16px]">Catat transaksi pengeluaran atau penghasilan pertama Anda untuk mulai memantau arus kas.</p>
+                            @endif
                             <a href="{{ route('transactions.create') }}" class="btn-brand inline-flex items-center mt-6 min-h-[44px]">
                                 Tambah Transaksi
                                 <svg class="w-4 h-4 ms-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>

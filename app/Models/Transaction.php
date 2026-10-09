@@ -30,4 +30,17 @@ class Transaction extends Model
     {
         return $this->belongsTo(Wallet::class);
     }
+
+    public function scopePeriod($query, ?int $tahun, ?int $bulan)
+    {
+        if ($tahun) {
+            $query->whereYear('transaction_date', $tahun);
+        }
+
+        if ($bulan) {
+            $query->whereMonth('transaction_date', $bulan);
+        }
+
+        return $query;
+    }
 }
