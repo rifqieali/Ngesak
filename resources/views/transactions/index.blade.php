@@ -5,9 +5,9 @@
                 <span class="text-ember">Riwayat</span>
                 <span class="text-graphite">Transaksi</span>
             </h2>
-            <a href="{{ route('transactions.create') }}" class="btn-brand inline-flex items-center min-h-[44px]">
+            <a href="{{ route('transactions.create') }}" class="btn-brand inline-flex items-center min-h-[44px] pe-[18px]">
                 Tambah Transaksi
-                <svg class="w-4 h-4 ms-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+                <svg class="w-4 h-4 ms-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
             </a>
         </div>
     </x-slot>
@@ -41,11 +41,11 @@
                 <div class="flex flex-col sm:flex-row gap-5 mt-8">
                     <div class="flex-1 bg-paper rounded-pill p-8 border border-fog">
                         <p class="text-[12px] font-semibold text-graphite/70">Pemasukan</p>
-                        <p class="font-bold text-[20px] text-verdant mt-2">{{ number_format($pageIncome, 0, ',', '.') }}</p>
+                        <p class="font-bold text-[20px] text-verdant mt-2 tabular-nums">{{ number_format($pageIncome, 0, ',', '.') }}</p>
                     </div>
                     <div class="flex-1 bg-paper rounded-pill p-8 border border-fog">
                         <p class="text-[12px] font-semibold text-graphite/70">Pengeluaran</p>
-                        <p class="font-bold text-[20px] text-signal mt-2">{{ number_format($pageExpense, 0, ',', '.') }}</p>
+                        <p class="font-bold text-[20px] text-signal mt-2 tabular-nums">{{ number_format($pageExpense, 0, ',', '.') }}</p>
                     </div>
                 </div>
             </section>
@@ -58,7 +58,7 @@
                         @php
                             $isIncome = $tx->type === 'penghasilan';
                         @endphp
-                        <article class="bg-paper border-b border-fog py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <article class="bg-paper border-b border-fog py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-[background-color] duration-100 ease-out hover:bg-fog">
                             <div class="flex items-center gap-4">
                                 <span class="w-2.5 h-2.5 rounded-full shrink-0 {{ $isIncome ? 'bg-verdant' : 'bg-signal' }}" aria-hidden="true"></span>
                                 <div>
@@ -69,6 +69,11 @@
                                         <span class="tag-pill inline-flex items-center text-[12px] font-semibold bg-fog {{ $isIncome ? 'text-verdant' : 'text-signal' }}">
                                             {{ $tx->type }}
                                         </span>
+                                        @if($tx->wallet)
+                                            <span class="tag-pill inline-flex items-center text-[12px] font-semibold bg-fog text-graphite/70">
+                                                {{ $tx->wallet->name }}
+                                            </span>
+                                        @endif
                                     </div>
                                     <p class="text-[14px] text-graphite/70">{{ $tx->notes ?: 'Tidak ada catatan' }}</p>
                                     <p class="text-[12px] text-graphite/60 mt-1 font-medium">
@@ -78,17 +83,17 @@
                             </div>
 
                             <div class="flex items-center justify-between sm:justify-end gap-4">
-                                <span class="font-bold text-[18px] {{ $isIncome ? 'text-verdant' : 'text-graphite' }}">
+                                <span class="font-bold text-[18px] tabular-nums {{ $isIncome ? 'text-verdant' : 'text-graphite' }}">
                                     {{ $isIncome ? '+' : '-' }}Rp {{ number_format($tx->amount, 0, ',', '.') }}
                                 </span>
                                 <div class="flex items-center gap-2">
-                                    <a href="{{ route('transactions.edit', $tx) }}" class="inline-flex items-center justify-center min-w-[44px] min-h-[44px] px-4 bg-paper text-graphite hover:bg-fog rounded-pill border border-fog transition text-[14px] font-semibold" aria-label="Edit transaksi {{ $tx->category->name ?? $tx->id }}">
+                                    <a href="{{ route('transactions.edit', $tx) }}" class="inline-flex items-center justify-center min-w-[44px] min-h-[44px] px-4 bg-paper text-graphite hover:bg-fog rounded-pill border border-fog transition-[color,background-color,border-color,transform] duration-150 ease-out active:scale-[0.96] text-[14px] font-semibold" aria-label="Edit transaksi {{ $tx->category->name ?? $tx->id }}">
                                         Edit
                                     </a>
                                     <form action="{{ route('transactions.destroy', $tx) }}" method="POST" class="inline-block" onsubmit="return confirm('Hapus transaksi ini?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="inline-flex items-center justify-center min-w-[44px] min-h-[44px] px-4 bg-paper text-signal hover:bg-fog rounded-pill border border-fog transition text-[14px] font-semibold" aria-label="Hapus transaksi {{ $tx->category->name ?? $tx->id }}">
+                                        <button type="submit" class="inline-flex items-center justify-center min-w-[44px] min-h-[44px] px-4 bg-paper text-signal hover:bg-fog rounded-pill border border-fog transition-[color,background-color,border-color,transform] duration-150 ease-out active:scale-[0.96] text-[14px] font-semibold" aria-label="Hapus transaksi {{ $tx->category->name ?? $tx->id }}">
                                             Hapus
                                         </button>
                                     </form>
@@ -104,9 +109,9 @@
                             @else
                                 <p class="text-graphite/70 mt-2 max-w-sm mx-auto text-[16px]">Catat transaksi pengeluaran atau penghasilan pertama Anda untuk mulai memantau arus kas.</p>
                             @endif
-                            <a href="{{ route('transactions.create') }}" class="btn-brand inline-flex items-center mt-6 min-h-[44px]">
+                            <a href="{{ route('transactions.create') }}" class="btn-brand inline-flex items-center mt-6 min-h-[44px] pe-[18px]">
                                 Tambah Transaksi
-                                <svg class="w-4 h-4 ms-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+                                <svg class="w-4 h-4 ms-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
                             </a>
                         </div>
                     @endforelse

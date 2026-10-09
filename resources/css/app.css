@@ -72,9 +72,15 @@
     line-height: 1.2;
     border-radius: 26px;
     padding: 12px 20px;
+    transition-property: color, background-color, border-color, scale;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
   }
   .btn-brand:hover {
     background-color: #e64b05;
+  }
+  .btn-brand:active {
+    scale: 0.96;
   }
   .card-flat {
     background-color: var(--color-paper-white);

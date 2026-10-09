@@ -29,7 +29,7 @@ Route::get('/dashboard', function () {
     $saldo = $totalPenghasilan - $totalPengeluaran;
 
     $recentTransactions = (clone $base)
-        ->with('category')
+        ->with(['category', 'wallet'])
         ->latest('transaction_date')
         ->latest('id')
         ->take(5)

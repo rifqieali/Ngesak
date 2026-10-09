@@ -54,9 +54,9 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
-                <a href="{{ route('transactions.create') }}" class="btn-brand inline-flex items-center">
+                <a href="{{ route('transactions.create') }}" class="btn-brand inline-flex items-center pe-[18px]">
                     Tambah Transaksi
-                    <svg class="w-4 h-4 ms-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+                    <svg class="w-4 h-4 ms-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
                 </a>
             </div>
 
@@ -82,9 +82,9 @@
             <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
                 {{ __('Kategori') }}
             </x-responsive-nav-link>
-            <a href="{{ route('transactions.create') }}" class="btn-brand inline-flex items-center justify-center w-full mt-2">
+            <a href="{{ route('transactions.create') }}" class="btn-brand inline-flex items-center justify-center w-full mt-2 pe-[18px]">
                 Tambah Transaksi
-                <svg class="w-4 h-4 ms-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+                <svg class="w-4 h-4 ms-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
             </a>
         </div>
 

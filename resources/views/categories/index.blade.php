@@ -5,9 +5,9 @@
                 <span class="text-ember">Daftar</span>
                 <span class="text-graphite">Kategori</span>
             </h2>
-            <a href="{{ route('categories.create') }}" class="btn-brand inline-flex items-center min-h-[44px]">
+            <a href="{{ route('categories.create') }}" class="btn-brand inline-flex items-center min-h-[44px] pe-[18px]">
                 Tambah Kategori
-                <svg class="w-4 h-4 ms-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+                <svg class="w-4 h-4 ms-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
             </a>
         </div>
     </x-slot>

@@ -29,7 +29,7 @@
         <button type="submit" class="btn-brand min-h-[44px]">
             Terapkan
         </button>
-        <a href="{{ $action }}" class="inline-flex items-center px-5 py-3 bg-paper border border-fog rounded-pill font-semibold text-[16px] text-graphite hover:bg-fog transition min-h-[44px]">
+        <a href="{{ $action }}" class="inline-flex items-center px-5 py-3 bg-paper border border-fog rounded-pill font-semibold text-[16px] text-graphite hover:bg-fog transition-[color,background-color,border-color,transform] duration-150 ease-out active:scale-[0.96] min-h-[44px]">
             Atur Ulang
         </a>
     </div>
